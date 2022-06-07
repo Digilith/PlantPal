@@ -35,7 +35,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/materialButton4"
+        android:id="@+id/listDeleteBtn"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
         android:layout_width="48dp"
         android:layout_height="48dp"
@@ -50,6 +50,7 @@
         tools:ignore="TouchTargetSizeCheck" />
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/listEditBtn"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
         android:layout_width="48dp"
         android:layout_height="48dp"
