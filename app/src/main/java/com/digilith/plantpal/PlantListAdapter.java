@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.imageview.ShapeableImageView;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 public class PlantListAdapter extends RecyclerView.Adapter<PlantListViewHolder>{
@@ -49,6 +51,7 @@ public class PlantListAdapter extends RecyclerView.Adapter<PlantListViewHolder>{
 class PlantListViewHolder extends RecyclerView.ViewHolder{
 
     TextView name;
+    TextView note;
     ShapeableImageView avatar;
     private PlantListAdapter adapter;
     AlertDialog dialog;
@@ -58,6 +61,7 @@ class PlantListViewHolder extends RecyclerView.ViewHolder{
         // Initialize name & avatar
         name = itemView.findViewById(R.id.mainListPlantName);
         avatar = itemView.findViewById(R.id.mainListPlantAvatar);
+        note = itemView.findViewById(R.id.mainPlantListNote);
         // Deletes list item
         itemView.findViewById(R.id.listDeleteBtn).setOnClickListener(view -> {
             adapter.items.remove(getAdapterPosition());
@@ -65,20 +69,30 @@ class PlantListViewHolder extends RecyclerView.ViewHolder{
         });
         // Edits list item
         itemView.findViewById(R.id.listEditBtn).setOnClickListener(view -> {
+            // Create dialog
             AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
 
+            // Inflate custom view
             LayoutInflater inflater = LayoutInflater.from(itemView.getContext());
             View dialogBox = inflater.inflate(R.layout.activity_main_plant_list_edit_dialog,
                     null);
-            EditText editName = dialogBox.findViewById(R.id.edit_name);
-            Button editAvatarBtn = dialogBox.findViewById(R.id.edit_avatar);
+            // Initialize elements
+            EditText editName = dialogBox.findViewById(R.id.editTextName);
+            EditText editNote = dialogBox.findViewById(R.id.editTextNote);
+            Button editAvatarBtn = dialogBox.findViewById(R.id.editTextAvatar);
 
+            // Use layout
             builder.setView(dialogBox);
+            // Dialog box logic
             builder.setTitle("Edit Plant")
                 .setPositiveButton("Apply", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         name.setText(editName.getText().toString());
+                        note.setText(editNote.getText().toString());
+                        // TODO: image upload
+                        // TODO: db
+                        // TODO: don't change when empty
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -88,7 +102,8 @@ class PlantListViewHolder extends RecyclerView.ViewHolder{
                     }
                 })
                 .create();
-                builder.show();
+            // Show dialog
+            builder.show();
         });
 
     }
