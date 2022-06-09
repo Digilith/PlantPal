@@ -4,8 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import com.digilith.plantpal.databinding.ActivityMainBinding;
-
 public class PlantEdit extends AppCompatActivity {
 
     @Override
