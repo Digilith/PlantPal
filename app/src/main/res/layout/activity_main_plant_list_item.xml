@@ -21,7 +21,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearanceOverlay="@style/roundedImageView"
-        android:background="@drawable/dummy"/>
+        android:background="@drawable/ic_baseline_eco_24"/>
 
     <TextView
         android:id="@+id/mainListPlantName"
@@ -54,7 +54,7 @@
         style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_marginEnd="28dp"
+        android:layout_marginEnd="32dp"
         android:insetLeft="0dp"
         android:insetTop="0dp"
         android:insetRight="0dp"
@@ -62,7 +62,7 @@
         app:cornerRadius="30dp"
         app:icon="@drawable/ic_baseline_edit_24"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/materialButton4"
+        app:layout_constraintEnd_toStartOf="@+id/listDeleteBtn"
         tools:ignore="TouchTargetSizeCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
