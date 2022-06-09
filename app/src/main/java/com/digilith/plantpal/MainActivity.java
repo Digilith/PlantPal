@@ -1,6 +1,8 @@
 package com.digilith.plantpal;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
@@ -10,26 +12,37 @@ import android.widget.ListView;
 
 import com.google.android.material.button.MaterialButton;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
     private MaterialButton addPlantBtn;
     private ArrayAdapter<String> adapter;
-    private ListView listView;
+    private RecyclerView recyclerView;
+    String[] data = {"New Plant", "New Plant", "New Plant"};
+    int counter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Shifting calendar to current date
         CalendarView cv = findViewById(R.id.calendarView);
         cv.setDate(System.currentTimeMillis(),false,true);
 
-        addPlantBtn = findViewById(R.id.mainAddPlantBtn);
-        listView = findViewById(R.id.mainListView);
+        List<String> items = new LinkedList<>();
+        items.add("NEW Plant");
 
-        addPlantBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        recyclerView = findViewById(R.id.mainRecyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        PlantListAdapter adapter = new PlantListAdapter(items);
+        recyclerView.setAdapter(adapter);
 
-            }
+        findViewById(R.id.mainAddPlantBtn).setOnClickListener(view -> {
+            items.add(data[counter%3]);
+            counter++;
+            adapter.notifyItemInserted(items.size()-1);
         });
     }
 }
