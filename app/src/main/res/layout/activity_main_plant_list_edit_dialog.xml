@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:padding="32dp">
+
+    <EditText
+        android:id="@+id/edit_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="New Plant Name" />
+
+    <Button
+        android:id="@+id/edit_avatar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Upload new image"
+        android:layout_below="@+id/edit_name"/>
+
+</RelativeLayout>

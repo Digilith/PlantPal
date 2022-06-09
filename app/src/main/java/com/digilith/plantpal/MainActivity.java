@@ -35,8 +35,11 @@ public class MainActivity extends AppCompatActivity {
         CalendarView cv = findViewById(R.id.calendarView);
         cv.setDate(System.currentTimeMillis(),false,true);
 
+        // Plants list
         List<String> items = new LinkedList<>();
 
+
+        // Setting up recyclerview
         recyclerView = findViewById(R.id.mainRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         PlantListAdapter adapter = new PlantListAdapter(items);
