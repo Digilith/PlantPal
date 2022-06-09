@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.CalendarView;
 import android.widget.ListView;
 
+import com.digilith.plantpal.databinding.ActivityMainBinding;
 import com.google.android.material.button.MaterialButton;
 
 import java.util.LinkedList;
