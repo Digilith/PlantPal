@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
         cv.setDate(System.currentTimeMillis(),false,true);
 
         List<String> items = new LinkedList<>();
-        items.add("NEW Plant");
 
         recyclerView = findViewById(R.id.mainRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
