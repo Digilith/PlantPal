@@ -1,11 +1,15 @@
 package com.digilith.plantpal;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.CalendarView;
 import android.widget.ListView;
@@ -39,10 +43,17 @@ public class MainActivity extends AppCompatActivity {
         PlantListAdapter adapter = new PlantListAdapter(items);
         recyclerView.setAdapter(adapter);
 
+        // Adding new plants
         findViewById(R.id.mainAddPlantBtn).setOnClickListener(view -> {
             items.add(data[counter%3]);
             counter++;
             adapter.notifyItemInserted(items.size()-1);
         });
+
+        //Status bar color
+        Window window = this.getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.setStatusBarColor(ContextCompat.getColor(this, R.color.malachite));
     }
 }
