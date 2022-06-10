@@ -3,15 +3,27 @@ package com.digilith.plantpal;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +41,7 @@ import android.widget.Toast;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.imageview.ShapeableImageView;
 
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -40,23 +53,21 @@ public class MainActivity extends AppCompatActivity{
     List<String> items = new LinkedList<>();
     Uri imageUri;
     int hour, minute;
+    PendingIntent operation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        // Shifting calendar to current date
-        //CalendarView cv = findViewById(R.id.calendarView);
-        //cv.setDate(System.currentTimeMillis(),false,true);
+        createNotificationChannel();
 
         layout = findViewById(R.id.linearLayout);
+
+        Calendar calendar = Calendar.getInstance();
 
         // Adding new plants
         findViewById(R.id.mainAddPlantBtn).setOnClickListener(view -> {
             addPlant();
-            //items.add("New Plant");
-            //adapter.notifyItemInserted(items.size()-1);
         });
 
         //Status bar color
@@ -77,7 +88,9 @@ public class MainActivity extends AppCompatActivity{
         avatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Watered 6 10 2022", Toast.LENGTH_LONG);
+                if(name.getText().equals("Bob"))
+                    Toast.makeText(MainActivity.this, "Watered 6 10 2022", Toast.LENGTH_LONG)
+                            .show();
             }
         });
 
@@ -122,6 +135,15 @@ public class MainActivity extends AppCompatActivity{
                     @Override
                     public void onClick(View v) {
                         popTimePicker(v, time);
+                        Intent intent = new Intent(MainActivity.this, ReminderBroadcast.class);
+                        @SuppressLint("UnspecifiedImmutableFlag") PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this,
+                                0, intent, 0);
+                        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+                        long timeAtButtonClick;
+                        timeAtButtonClick = System.currentTimeMillis();
+                        long tenSecondsMillis = 1000 * 10;
+                        alarmManager.set(AlarmManager.RTC_WAKEUP,
+                                timeAtButtonClick + tenSecondsMillis, pendingIntent);
                     }
                 });
 
@@ -137,6 +159,7 @@ public class MainActivity extends AppCompatActivity{
                                 if(imageUri != null)
                                     avatar.setImageURI(imageUri);
                                 imageUri = null;
+
                             }
                         })
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -169,7 +192,6 @@ public class MainActivity extends AppCompatActivity{
             public void onTimeSet(TimePicker view, int selectedHour, int selectedMinute) {
                 hour = selectedHour;
                 minute = selectedMinute;
-
                 time.setText(String
                         .format(Locale.getDefault(), "%02d:%02d", hour, minute));
             }
@@ -180,4 +202,12 @@ public class MainActivity extends AppCompatActivity{
         timePickerDialog.setTitle("Pick time");
         timePickerDialog.show();
     }
+
+    private void createNotificationChannel() {
+        CharSequence name = "plantpal";
+        String description = "Channel for PlantPal";
+        NotificationChannel channel = new NotificationChannel("plantpal", name, NotificationManager.IMPORTANCE_HIGH);
+
+    }
 }
+
