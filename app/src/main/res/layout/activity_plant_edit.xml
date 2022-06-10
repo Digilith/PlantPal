@@ -64,12 +64,5 @@
         android:text="Pick time"
         android:layout_below="@id/textViewTime"/>
 
-    <Button
-        android:id="@+id/applyChangesBtn"
-        android:text="Apply changes"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/pickTimeBtn" />
-
 
 </RelativeLayout>

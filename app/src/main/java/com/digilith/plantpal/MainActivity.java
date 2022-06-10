@@ -74,6 +74,13 @@ public class MainActivity extends AppCompatActivity{
         MaterialButton del = view.findViewById(R.id.listDeleteBtn);
         MaterialButton edit = view.findViewById(R.id.listEditBtn);
 
+        avatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "Watered 6 10 2022", Toast.LENGTH_LONG);
+            }
+        });
+
         del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,9 +130,13 @@ public class MainActivity extends AppCompatActivity{
                         .setPositiveButton("Apply", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                name.setText(editName.getText().toString());
-                                note.setText(editNote.getText().toString());
-                                avatar.setImageURI(imageUri);
+                                if(!editName.getText().toString().isEmpty())
+                                    name.setText(editName.getText().toString());
+                                if(!editNote.getText().toString().isEmpty())
+                                    note.setText(editNote.getText().toString());
+                                if(imageUri != null)
+                                    avatar.setImageURI(imageUri);
+                                imageUri = null;
                             }
                         })
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
