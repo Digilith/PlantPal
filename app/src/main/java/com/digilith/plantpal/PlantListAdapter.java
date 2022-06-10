@@ -58,14 +58,6 @@ public class PlantListAdapter extends RecyclerView.Adapter<PlantListAdapter.Plan
         PlantListAdapter adapter;
         OnPlantListener onPlantListener;
 
-        public TextView getName() {
-            return name;
-        }
-
-        public TextView getNote() {
-            return note;
-        }
-
         public PlantListViewHolder(@NonNull View itemView, OnPlantListener onPlantListener) {
             super(itemView);
             // Attach onclicklistener to the viewholder
