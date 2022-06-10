@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.imageview.ShapeableImageView;
@@ -29,7 +30,7 @@ import com.google.android.material.imageview.ShapeableImageView;
 import java.util.LinkedList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements PlantListAdapter.OnPlantListener{
+public class MainActivity extends AppCompatActivity{
     //private RecyclerView recyclerView;
     LinearLayout layout;
     // Plants list
@@ -46,12 +47,6 @@ public class MainActivity extends AppCompatActivity implements PlantListAdapter.
         cv.setDate(System.currentTimeMillis(),false,true);
 
         layout = findViewById(R.id.linearLayout);
-
-        // Setting up recyclerview
-        // recyclerView = findViewById(R.id.mainRecyclerView);
-        //recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        //PlantListAdapter adapter = new PlantListAdapter(items, this);
-        //recyclerView.setAdapter(adapter);
 
         // Adding new plants
         findViewById(R.id.mainAddPlantBtn).setOnClickListener(view -> {
@@ -142,11 +137,6 @@ public class MainActivity extends AppCompatActivity implements PlantListAdapter.
         });
 
         layout.addView(view);
-    }
-
-    @Override
-    public void onEditClick(int position) {
-        items.get(position);
     }
 
     @Override
