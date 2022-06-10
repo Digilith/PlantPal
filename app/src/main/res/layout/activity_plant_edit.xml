@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:padding="32dp">
+
+    <EditText
+        android:id="@+id/editTextName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="New plant name" />
+
+    <EditText
+        android:id="@+id/editTextNote"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="New note"
+        android:layout_below="@+id/editTextName"/>
+
+    <Button
+        android:id="@+id/editTextAvatar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Upload new image"
+        android:layout_below="@+id/editTextNote"/>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:text="Specify watering interval in days:"
+        android:layout_below="@id/editTextAvatar"/>
+
+    <EditText
+        android:id="@+id/editTextWateringDay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView"
+        android:inputType="number"
+        android:textSize="35dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:text="Send push notificstions at:"
+        android:layout_below="@+id/editTextWateringDay"/>
+
+    <TextView
+        android:id="@+id/textViewTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true"
+        android:text="00:00"
+        android:textSize="35dp" />
+
+    <Button
+        android:id="@+id/pickTimeBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Pick time"
+        android:layout_below="@id/textViewTime"/>
+
+    <Button
+        android:id="@+id/applyChangesBtn"
+        android:text="Apply changes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/pickTimeBtn" />
+
+
+</RelativeLayout>

@@ -16,13 +16,15 @@ import com.google.android.material.imageview.ShapeableImageView;
 
 import java.util.List;
 
-public class PlantListAdapter extends RecyclerView.Adapter<PlantListViewHolder>{
+public class PlantListAdapter extends RecyclerView.Adapter<PlantListAdapter.PlantListViewHolder>{
 
     // DB here
     List<String> items;
+    OnPlantListener onPlantListener;
 
-    public PlantListAdapter(List<String> items) {
+    public PlantListAdapter(List<String> items, OnPlantListener onPlantListener) {
         this.items = items;
+        this.onPlantListener = onPlantListener;
     }
 
     @NonNull
@@ -30,7 +32,7 @@ public class PlantListAdapter extends RecyclerView.Adapter<PlantListViewHolder>{
     public PlantListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.activity_main_plant_list_item, parent, false);
-        return new PlantListViewHolder(view).linkAdapter(this);
+        return new PlantListViewHolder(view, onPlantListener);
     }
 
     // DB here
@@ -43,58 +45,88 @@ public class PlantListAdapter extends RecyclerView.Adapter<PlantListViewHolder>{
     public int getItemCount() {
         return items.size();
     }
-}
+
+    class PlantListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+
+        TextView name;
+        TextView note;
+        ShapeableImageView avatar;
+        private PlantListAdapter adapter;
+        AlertDialog dialog;
+        OnPlantListener onPlantListener;
+
+        public PlantListViewHolder(@NonNull View itemView, OnPlantListener onPlantListener) {
+            super(itemView);
+            // Attach onclicklistener to the viewholder
+            itemView.setOnClickListener(this);
+            //Set onplantlistener
+            this.onPlantListener = onPlantListener;
+            // Initialize name & avatar
+            name = itemView.findViewById(R.id.mainListPlantName);
+            avatar = itemView.findViewById(R.id.mainListPlantAvatar);
+            note = itemView.findViewById(R.id.mainPlantListNote);
+            // Deletes list item
+            itemView.findViewById(R.id.listDeleteBtn).setOnClickListener(view -> {
+                adapter.items.remove(getAdapterPosition());
+                adapter.notifyItemRemoved(getAdapterPosition());
+            });
+            // Edits list item
+            itemView.findViewById(R.id.listEditBtn).setOnClickListener(view -> {
 
 
-class PlantListViewHolder extends RecyclerView.ViewHolder{
+               /* // Create dialog
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
 
-    TextView name;
-    ShapeableImageView avatar;
-    private PlantListAdapter adapter;
-    AlertDialog dialog;
+                // Inflate custom view
+                LayoutInflater inflater = LayoutInflater.from(itemView.getContext());
+                View dialogBox = inflater.inflate(R.layout.activity_main_plant_list_edit_dialog,
+                        null);
+                // Initialize elements
+                EditText editName = dialogBox.findViewById(R.id.editTextName);
+                EditText editNote = dialogBox.findViewById(R.id.editTextNote);
+                Button editAvatarBtn = dialogBox.findViewById(R.id.editTextAvatar);
 
-    public PlantListViewHolder(@NonNull View itemView) {
-        super(itemView);
-        // Initialize name & avatar
-        name = itemView.findViewById(R.id.mainListPlantName);
-        avatar = itemView.findViewById(R.id.mainListPlantAvatar);
-        // Deletes list item
-        itemView.findViewById(R.id.listDeleteBtn).setOnClickListener(view -> {
-            adapter.items.remove(getAdapterPosition());
-            adapter.notifyItemRemoved(getAdapterPosition());
-        });
-        // Edits list item
-        itemView.findViewById(R.id.listEditBtn).setOnClickListener(view -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                // Use layout
+                builder.setView(dialogBox);
+                // Dialog box logic
+                builder.setTitle("Edit Plant")
+                        .setPositiveButton("Apply", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                name.setText(editName.getText().toString());
+                                note.setText(editNote.getText().toString());
+                                // TODO: image upload
+                                // TODO: db
+                                // TODO: don't change when empty
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
 
-            LayoutInflater inflater = LayoutInflater.from(itemView.getContext());
-            View dialogBox = inflater.inflate(R.layout.activity_main_plant_list_edit_dialog,
-                    null);
-            EditText editName = dialogBox.findViewById(R.id.edit_name);
-            Button editAvatarBtn = dialogBox.findViewById(R.id.edit_avatar);
+                            }
+                        })
+                        .create();
+                // Show dialog
+                builder.show(); */
+            });
 
-            builder.setView(dialogBox);
-            builder.setTitle("Edit Plant")
-                .setPositiveButton("Apply", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        name.setText(editName.getText().toString());
-                    }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+        }
 
-                    }
-                })
-                .create();
-                builder.show();
-        });
+        public PlantListViewHolder linkAdapter(PlantListAdapter adapter) {
+            this.adapter = adapter;
+            return this;
+        }
 
+        @Override
+        public void onClick(View view) {
+            onPlantListener.onEditClick(getAdapterPosition());
+        }
     }
 
-    public PlantListViewHolder linkAdapter(PlantListAdapter adapter){
-        this.adapter = adapter;
-        return this;
+    // Handling click events on recyclerview
+    public interface OnPlantListener {
+        void onEditClick(int position);
+
     }
 }

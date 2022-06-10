@@ -17,11 +17,11 @@
         android:id="@+id/mainListPlantAvatar"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:background="@drawable/ic_baseline_eco_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearanceOverlay="@style/roundedImageView"
-        android:background="@drawable/ic_baseline_eco_24"/>
+        app:shapeAppearanceOverlay="@style/roundedImageView" />
 
     <TextView
         android:id="@+id/mainListPlantName"
@@ -39,14 +39,15 @@
         style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        app:cornerRadius="30dp"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
         android:insetLeft="0dp"
+        android:insetTop="0dp"
         android:insetRight="0dp"
+        android:insetBottom="0dp"
+        app:cornerRadius="30dp"
         app:icon="@drawable/ic_baseline_delete_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mainPlantListNote"
         tools:ignore="TouchTargetSizeCheck" />
 
     <com.google.android.material.button.MaterialButton
@@ -63,7 +64,18 @@
         app:icon="@drawable/ic_baseline_edit_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/listDeleteBtn"
+        app:layout_constraintTop_toBottomOf="@+id/mainPlantListNote"
         tools:ignore="TouchTargetSizeCheck" />
+
+    <TextView
+        android:id="@+id/mainPlantListNote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="6dp"
+        android:text="Notes"
+        app:layout_constraintStart_toEndOf="@+id/mainListPlantAvatar"
+        app:layout_constraintTop_toBottomOf="@+id/mainListPlantName" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
