@@ -72,7 +72,9 @@ public class PlantListAdapter extends RecyclerView.Adapter<PlantListAdapter.Plan
             });
             // Edits list item
             itemView.findViewById(R.id.listEditBtn).setOnClickListener(view -> {
-                // Create dialog
+
+
+               /* // Create dialog
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
 
                 // Inflate custom view
@@ -106,7 +108,7 @@ public class PlantListAdapter extends RecyclerView.Adapter<PlantListAdapter.Plan
                         })
                         .create();
                 // Show dialog
-                builder.show();
+                builder.show(); */
             });
 
         }
