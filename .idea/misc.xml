@@ -4,10 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Documents/Projects/PlantPal/app/src/main/res/drawable/ic_baseline_edit_24.xml" value="0.2555" />
-        <entry key="..\:/Documents/Projects/PlantPal/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Documents/Projects/PlantPal/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Documents/Projects/PlantPal/app/src/main/res/layout/activity_main_plant_list_edit_dialog.xml" value="0.264" />
         <entry key="..\:/Documents/Projects/PlantPal/app/src/main/res/layout/activity_main_plant_list_item.xml" value="0.4" />
-        <entry key="..\:/Documents/Projects/PlantPal/app/src/main/res/layout/activity_plant_edit.xml" value="0.264" />
+        <entry key="..\:/Documents/Projects/PlantPal/app/src/main/res/layout/activity_plant_edit.xml" value="0.2127659574468085" />
       </map>
     </option>
   </component>

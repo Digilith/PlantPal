@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -22,6 +23,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
@@ -29,6 +31,7 @@ import com.google.android.material.imageview.ShapeableImageView;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity{
     //private RecyclerView recyclerView;
@@ -36,6 +39,7 @@ public class MainActivity extends AppCompatActivity{
     // Plants list
     List<String> items = new LinkedList<>();
     Uri imageUri;
+    int hour, minute;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +47,8 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
 
         // Shifting calendar to current date
-        CalendarView cv = findViewById(R.id.calendarView);
-        cv.setDate(System.currentTimeMillis(),false,true);
+        //CalendarView cv = findViewById(R.id.calendarView);
+        //cv.setDate(System.currentTimeMillis(),false,true);
 
         layout = findViewById(R.id.linearLayout);
 
@@ -91,6 +95,7 @@ public class MainActivity extends AppCompatActivity{
                 // Initialize elements
                 EditText editName = dialogBox.findViewById(R.id.editTextName);
                 EditText editNote = dialogBox.findViewById(R.id.editTextNote);
+                TextView time = dialogBox.findViewById(R.id.textViewTime);
                 Button editAvatarBtn = dialogBox.findViewById(R.id.editAvatarBtn);
                 Button pickTimeBtn = dialogBox.findViewById(R.id.pickTimeBtn);
 
@@ -106,6 +111,13 @@ public class MainActivity extends AppCompatActivity{
                     }
                 });
 
+                pickTimeBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        popTimePicker(v, time);
+                    }
+                });
+
                 // Dialog box logic
                 builder.setTitle("Edit Plant")
                         .setPositiveButton("Apply", new DialogInterface.OnClickListener() {
@@ -114,14 +126,6 @@ public class MainActivity extends AppCompatActivity{
                                 name.setText(editName.getText().toString());
                                 note.setText(editNote.getText().toString());
                                 avatar.setImageURI(imageUri);
-                                // TODO: image upload
-                                // TODO: pick date
-                                /*pickTimeBtn.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-
-                                    }
-                                });*/
                             }
                         })
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -145,5 +149,24 @@ public class MainActivity extends AppCompatActivity{
         if(resultCode == RESULT_OK && data != null) {
             imageUri = data.getData();
         }
+    }
+
+    public void popTimePicker(View view, TextView time) {
+        TimePickerDialog.OnTimeSetListener onTimeSetListener =
+                new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int selectedHour, int selectedMinute) {
+                hour = selectedHour;
+                minute = selectedMinute;
+
+                time.setText(String
+                        .format(Locale.getDefault(), "%02d:%02d", hour, minute));
+            }
+        };
+
+        TimePickerDialog timePickerDialog =
+                new TimePickerDialog(this, onTimeSetListener, hour, minute, true);
+        timePickerDialog.setTitle("Pick time");
+        timePickerDialog.show();
     }
 }
