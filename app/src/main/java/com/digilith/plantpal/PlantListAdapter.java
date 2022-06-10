@@ -18,15 +18,17 @@ import java.util.List;
 
 public class PlantListAdapter extends RecyclerView.Adapter<PlantListAdapter.PlantListViewHolder>{
 
-    // DB here
+    // All the plants
     List<String> items;
     OnPlantListener onPlantListener;
 
+    // Constructor
     public PlantListAdapter(List<String> items, OnPlantListener onPlantListener) {
         this.items = items;
         this.onPlantListener = onPlantListener;
     }
 
+    // Inflating custom layout
     @NonNull
     @Override
     public PlantListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -35,25 +37,34 @@ public class PlantListAdapter extends RecyclerView.Adapter<PlantListAdapter.Plan
         return new PlantListViewHolder(view, onPlantListener);
     }
 
-    // DB here
+    // Bind data for data integrity and propper scrolling
     @Override
     public void onBindViewHolder(@NonNull PlantListViewHolder holder, int position) {
         holder.name.setText(items.get(position));
+        holder.note.setText(items.get(position));
     }
 
+    // Items count
     @Override
     public int getItemCount() {
         return items.size();
     }
 
     class PlantListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-
+        // Stuff
         TextView name;
         TextView note;
         ShapeableImageView avatar;
-        private PlantListAdapter adapter;
-        AlertDialog dialog;
+        PlantListAdapter adapter;
         OnPlantListener onPlantListener;
+
+        public TextView getName() {
+            return name;
+        }
+
+        public TextView getNote() {
+            return note;
+        }
 
         public PlantListViewHolder(@NonNull View itemView, OnPlantListener onPlantListener) {
             super(itemView);
@@ -61,30 +72,35 @@ public class PlantListAdapter extends RecyclerView.Adapter<PlantListAdapter.Plan
             itemView.setOnClickListener(this);
             //Set onplantlistener
             this.onPlantListener = onPlantListener;
-            // Initialize name & avatar
+            // Initialize name notes & avatar
             name = itemView.findViewById(R.id.mainListPlantName);
             avatar = itemView.findViewById(R.id.mainListPlantAvatar);
             note = itemView.findViewById(R.id.mainPlantListNote);
+            // TODO: crash
             // Deletes list item
-            itemView.findViewById(R.id.listDeleteBtn).setOnClickListener(view -> {
-                adapter.items.remove(getAdapterPosition());
-                adapter.notifyItemRemoved(getAdapterPosition());
+            itemView.findViewById(R.id.listDeleteBtn).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    adapter.items.remove(getAdapterPosition());
+                    adapter.notifyItemRemoved(getAdapterPosition());
+                }
             });
             // Edits list item
             itemView.findViewById(R.id.listEditBtn).setOnClickListener(view -> {
 
 
-               /* // Create dialog
+                // Create dialog
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
 
                 // Inflate custom view
                 LayoutInflater inflater = LayoutInflater.from(itemView.getContext());
-                View dialogBox = inflater.inflate(R.layout.activity_main_plant_list_edit_dialog,
+                View dialogBox = inflater.inflate(R.layout.activity_plant_edit,
                         null);
                 // Initialize elements
                 EditText editName = dialogBox.findViewById(R.id.editTextName);
                 EditText editNote = dialogBox.findViewById(R.id.editTextNote);
-                Button editAvatarBtn = dialogBox.findViewById(R.id.editTextAvatar);
+                Button editAvatarBtn = dialogBox.findViewById(R.id.editAvatarBtn);
+                Button pickTimeBtn = dialogBox.findViewById(R.id.pickTimeBtn);
 
                 // Use layout
                 builder.setView(dialogBox);
@@ -96,8 +112,13 @@ public class PlantListAdapter extends RecyclerView.Adapter<PlantListAdapter.Plan
                                 name.setText(editName.getText().toString());
                                 note.setText(editNote.getText().toString());
                                 // TODO: image upload
-                                // TODO: db
-                                // TODO: don't change when empty
+                                // TODO: pick date
+                                /*pickTimeBtn.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+
+                                    }
+                                });*/
                             }
                         })
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -108,7 +129,7 @@ public class PlantListAdapter extends RecyclerView.Adapter<PlantListAdapter.Plan
                         })
                         .create();
                 // Show dialog
-                builder.show(); */
+                builder.show();
             });
 
         }

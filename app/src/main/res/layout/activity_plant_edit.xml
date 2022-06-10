@@ -18,7 +18,7 @@
         android:layout_below="@+id/editTextName"/>
 
     <Button
-        android:id="@+id/editTextAvatar"
+        android:id="@+id/editAvatarBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Upload new image"
@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:textSize="18sp"
         android:text="Specify watering interval in days:"
-        android:layout_below="@id/editTextAvatar"/>
+        android:layout_below="@id/editAvatarBtn"/>
 
     <EditText
         android:id="@+id/editTextWateringDay"

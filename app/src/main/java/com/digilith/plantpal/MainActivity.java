@@ -5,17 +5,10 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ArrayAdapter;
 import android.widget.CalendarView;
-import android.widget.ListView;
-
-import com.digilith.plantpal.databinding.ActivityMainBinding;
-import com.google.android.material.button.MaterialButton;
 
 import java.util.LinkedList;
 import java.util.List;
